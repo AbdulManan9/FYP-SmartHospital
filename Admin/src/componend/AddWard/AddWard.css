@@ -1,0 +1,48 @@
+.Add-ward-main-div{
+    width: 100%;
+    background-color: white;
+    border-top:1px solid rgb(168, 166, 166) ;
+}
+
+.add-ward-form{
+    width: 100%;
+    display: flex;
+}
+.add-ward-left{
+    padding-top: 20px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 20px;
+}
+.add-ward-left input{
+    padding: 5px 3px;
+}
+.add-ward-right{
+    width: 50%;
+}
+.add-ward-right img{
+    width: 100%;
+}
+.add-ward-btn{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.add-ward-btn button{
+    background-color: #016180;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 100px;
+}
+@media screen and (max-width: 600px) {
+    .add-ward-right{
+        display: none;
+    }
+    .add-ward-left{
+        width: 100%;
+    }
+}

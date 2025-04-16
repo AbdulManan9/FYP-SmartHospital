@@ -1,0 +1,94 @@
+.manage-doctor-menu{
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 12px;
+    width: 70%;
+    border-bottom: 1px solid rgb(225, 219, 219);
+}
+.main-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    
+}
+.doctor-info-txt{
+    color: #006B82;
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.menu-icon-div img{
+    width: 30px;
+    
+}
+
+.menu-list{
+    
+    position: absolute;
+    left:-20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #f9f9f9;
+    width: 110px;
+    border: 1.5px solid gray;
+}
+.menu-none{
+    display: none;
+}
+
+
+.menu-img{
+    width: 26px;
+    height: 33px;
+    padding-top: 7px;
+}
+.menu-list{
+    
+    position: absolute;
+    left:-20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #f9f9f9;
+    width: 110px;
+    border: 1.5px solid gray;
+}
+.menu-list p{
+    border-bottom: 1px solid gray;
+    padding: 2px;
+    cursor:pointer;
+}
+.cross-txt{
+    text-align: end;
+    font-family: sans-serif;
+    font-weight: 600;
+    color: rgb(97, 94, 94);
+    cursor: pointer;
+}
+.menu-none{
+    display: none;
+}
+.menu-icon-div{
+    position: relative;
+}
+.chucchuck-divk-div{
+   
+    width: 100%;
+}
+@media screen and (max-width:700px){
+    .manage-doctor-menu{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width:5500px){
+    .menu-list{
+    left: -71px;
+    }
+}

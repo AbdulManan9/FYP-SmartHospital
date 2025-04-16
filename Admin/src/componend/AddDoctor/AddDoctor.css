@@ -1,0 +1,88 @@
+.add-doctor-main-div{
+    
+    width: 100%;   
+    display: flex;
+    /* align-items: center; */
+    justify-content: center;
+    
+    
+}
+.none{
+    display: none;
+}
+.form-div{
+    width: 70%;
+    background-color: white;
+    
+    
+}
+.form-div form{
+    padding: 10px;
+}
+.form-inner-div{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.form-inner-div div{
+    display: flex;
+    gap: 30px;
+    
+}
+.cross-sighn{
+    text-align: end;
+    font-family: sans-serif;
+    color: gray;
+    cursor: pointer;
+}
+ 
+.input-form{
+    width: 47%;
+    padding: 10px;
+}
+.date-of-div{
+    width: 47%;
+    display: flex;
+    border: 0.6px solid black;
+    align-items: center;
+}
+.input-form-2{
+    width: 30%;
+    padding: 10px;
+}
+.button-div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+.button-div input{
+    padding: 8px 50px;
+    background-color: black;
+    color: white;
+    border-radius: 13px;
+}
+
+@media screen and (max-width:650px) {
+    .main-div{
+        height: 50vh;
+        
+    }
+}
+
+
+
+
+@media screen and (max-width:700px) {
+    .form-div{
+        width: 100%; 
+        
+    }
+}
+@media screen and (max-width:700px) {
+    .date-of-div-label{
+        display: none;
+        
+    }
+}

@@ -1,0 +1,24 @@
+.room-page-main-div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.room-page-main-div-button-div{
+    background-attachment: red;
+    width: 70%;
+    display: flex;
+    justify-content: space-around;
+}
+.display-room-list{
+    display: block;
+}
+.none{
+    display: none;
+}
+.display-add-room{
+    display: block;
+}

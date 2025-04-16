@@ -1,0 +1,33 @@
+.room-list-table-format {
+    display: grid;
+    grid-template-columns: 3.5fr 2fr 1fr;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 15px;
+    border:1px solid #cacaca;
+    font-size: 13px;
+}
+.room-list-main-div{
+    width: 70%;
+    background-color: white;
+    height: 70%;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    
+}
+.room-list-table-format b{
+    color: #006E8D;
+    font-family: sans-serif;
+}
+.beds-button{
+    background-color: #006E8D;
+    color: white;
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+}
+@media screen and (max-width:700px){
+    .room-list-main-div{
+    width: 90%;
+    }
+}

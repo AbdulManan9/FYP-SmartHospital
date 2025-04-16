@@ -1,0 +1,38 @@
+.manage-dashboard-main{
+    display: flex;
+    width: 100%;
+    
+}
+.dashboard-sidebar{
+    width: 18%;
+}
+.dashboard-data-main{
+    width: 82%;
+    /* background-color: red; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.dasboard{
+    width: 70%;
+    background-color: white;
+    align-self: center;
+}
+
+@media screen and (max-width: 700px) {
+    .dashboard-sidebar {
+        display: none;
+    }
+}
+@media screen and (max-width: 700px) {
+    .manage-dashboard-main {
+        height: 90vh;
+
+    }
+    .dashboard-data-main{
+        width: 100%;
+    }
+    .dasboard{
+        width: 90%;
+    }
+}

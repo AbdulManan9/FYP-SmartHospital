@@ -1,0 +1,41 @@
+.update-main-div{
+    /* display: block;
+    height: 70vh;
+    background-color: white;
+    background-color: red;
+    width: 100%; */
+     display: block;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    
+}
+.none{
+   
+    display: none;
+}
+.updae-inner-div{
+    width: 70%;
+    background-color: white;
+}
+.serch-div{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    /* padding: 0px 113px; */
+}
+.serch-div input{
+    padding: 10px;
+    width: 400px;
+
+}
+.serch-div button{
+    width: 100px;
+}
+
+@media screen and (max-width:550px){
+    .updae-inner-div{
+    width: 100%;
+    }
+}

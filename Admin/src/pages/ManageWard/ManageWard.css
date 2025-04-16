@@ -1,0 +1,82 @@
+.manage-ward-main-div{
+    width: 100%;
+    display: flex;
+}
+.display-ward-menu p{
+    cursor: pointer;
+    border-bottom:1px solid black ;
+    padding: 3px 0px;
+    font-family: sans-serif;
+    font-size: 15px;
+    /* text-align: end; */
+}
+.ward-info{
+    color:#006B82;
+    font-family: sans-serif;
+    font-weight: 600;
+    font-size: 17px;
+}
+.display-ward-menu{
+    display: block;
+    position: absolute;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 110px;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border: 1.5px solid gray;
+    left: -22px;
+}
+.manage-ward-sidebar{
+    width: 18%;
+}
+.manageWard-dashboard{
+    width: 82%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.ward-dashboard{
+    width: 70%;
+    background-color: white;
+}
+.ward-menu-bar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3px 10px;
+    width: 70%;
+    background-color: white;
+}
+.ward-menu-bar img{
+width: 30px;
+}
+
+@media screen and (max-width: 700px) {
+    .manage-ward-sidebar {
+        display: none;
+    }
+    .manage-ward-main-div{
+        height: 90vh;
+        justify-content: center;
+    }
+    .ward-dashboard{
+        width: 90%;
+    }
+    .ward-menu-bar{
+        width: 90%;
+    }
+    .manageWard-dashboard{
+        width: 100%;
+    }
+    .display-ward-menu{
+        left: -60px;
+    }
+}
+/* @media screen and (max-width: 700px) {
+    .display-ward-menu{
+        left:'150px'
+    }
+} */
