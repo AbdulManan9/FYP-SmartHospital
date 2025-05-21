@@ -16,8 +16,6 @@ const AppointmentForm = () => {
     doctor_id:id,
     Email: "",
     appointmentDate: "",
-   
-
   });
 
   const [error, setError] = useState("");
@@ -31,7 +29,6 @@ const AppointmentForm = () => {
   const handleSubmit = async (e) => {
 
     e.preventDefault();
-    alert("Funtion all");
     try {
       
       const response = await axios.post("http://localhost:4000/api/appointment/takeAppointment", formData);
@@ -122,17 +119,14 @@ const AppointmentForm = () => {
                 <input type="date" name="appointmentDate" value={formData.appointmentDate} onChange={handleChange} style={{ width: "100%", height: "25px" }} />
               </Box>
 
-              <Box sx={{ width: { xs: "90%", md: "45%" } }}>
+              {/* <Box sx={{ width: { xs: "90%", md: "45%" } }}>
                 <label>Doctor Name</label><br />
                 <input type="text" name="doctorName" value={formData.doctorName} onChange={handleChange} style={{ width: "100%", height: "25px" }} />
-              </Box>
+              </Box> */}
             </Box>
 
             {/* Reason for Appointment */}
-            <Box sx={{ marginTop: "20px" }}>
-              <label>Reason for Appointment</label><br />
-              <textarea name="reason" value={formData.reason} onChange={handleChange} style={{ width: "100%", height: "60px" }} />
-            </Box>
+            
 
             {/* Submit Button */}
             <Box sx={{ marginTop: "20px", marginBottom: "20px" }}>

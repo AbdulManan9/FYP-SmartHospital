@@ -3,11 +3,13 @@ import AppointmentModel from "../models/AppointmentModel.js";
 import DoctorModel from "../models/doctorModel.js";
 import DoctorScheduleModel from "../models/DoctorScheduleModel.js";
 import validateAppointment from "../Validation/AppointmentValidation.js";
+import AdmissionRecordModel from "../models/AdmitRecordModel.js";
 // import validator from 'validator';
 import appointmentModel from "../models/AppointmentModel.js";
 
 const takeAppointment = async (req, resp) => {
     const { error } = validateAppointment(req.body);
+    
     try {
         const { cnic, doctor_id, reason, appointmentDate } = req.body;
 
@@ -30,6 +32,9 @@ const takeAppointment = async (req, resp) => {
             return resp.status(404).json({ success: false, message: "Doctor schedule not found" });
         }
 
+        
+        
+
         // Convert appointment date to day name
         const appointmentDay = new Date(appointmentDate).toLocaleDateString("en-US", { weekday: "long" });
 
@@ -50,6 +55,7 @@ const takeAppointment = async (req, resp) => {
 
         // Check if patient already exists
         let patient = await PatientModel.findOne({ cnic });
+         
         if (!patient) {
             patient = new PatientModel({
                 name: req.body.name,
@@ -59,6 +65,19 @@ const takeAppointment = async (req, resp) => {
                 cnic: req.body.cnic,
             });
             await patient.save();
+        }
+        else{
+            const activeAdmission = await AdmissionRecordModel.findOne({
+                    patient_id: patient._id,
+                    status: "admitted"
+                });
+                
+                if (activeAdmission) {
+                    return resp.status(400).json({
+                        success: false,
+                        message: "Patient is already admitted and cannot book a new appointment right now."
+                    });
+                }
         }
 
         // Book the appointment
@@ -71,7 +90,7 @@ const takeAppointment = async (req, resp) => {
 
         await newAppointment.save();
 
-        resp.json({
+        return resp.json({
             appointmentCount: appointmentCount + 1,
             success: true,
             message: `Appointment confirmed on ${appointmentDate} your appointment Number ${appointmentCount + 1}`,
@@ -82,7 +101,7 @@ const takeAppointment = async (req, resp) => {
 
     } catch (error) {
         console.error("Error in takeAppointment:", error);
-        resp.status(500).json({ success: false, message: "Error in API" });
+        return resp.status(500).json({ success: false, message: "Error in API" });
     }
 };
 
@@ -92,7 +111,7 @@ const totalAppointment = async (req, resp) => {
     try {
         const doctor_id = req.body.doctor_id;
         console.log(doctor_id);
-        const totalAppointment = await AppointmentModel.find({ doctor_id })
+        const totalAppointment = await AppointmentModel.find({ doctor_id }).populate('patient_id').populate('doctor_id');
         const Total = totalAppointment.length;
         if (Total > 0) {
             console.log("Appointment found")
@@ -113,7 +132,8 @@ const totalAppointment = async (req, resp) => {
         }
     }
     catch (error) {
-        resp.json({
+        console.log(error);
+        return resp.json({
             success: false,
             message: "Error in api integration"
         })
@@ -191,7 +211,67 @@ const PatientAppointmentDetail = async (req, resp) => {
     }
 };
 
-// Delate Appointment
+// Find Today appointment
+
+const getTodaysAppointments = async (req, resp) => {
+    try {
+        const {doctor_id}=req.params;
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based
+        const dd = String(today.getDate()).padStart(2, '0');
+        const formattedDate = `${yyyy}-${mm}-${dd}`; // format: "YYYY-MM-DD"
+
+        const appointments = await appointmentModel.find({ appointmentDate: formattedDate,doctor_id:doctor_id }).populate('patient_id').populate('doctor_id');
+        
+        
+
+        return resp.json({
+            success: true,
+            message: "Today's appointments fetched successfully",
+            data: appointments,
+            total:appointments.length
+        });
+    } catch (error) {
+        console.error("Error fetching today's appointments:", error);
+        return resp.status(500).json({
+            success: false,
+            message: "Internal server error",
+            error: error.message
+        });
+    }
+};
+
+// complete appointment
+
+const completeAppointment=async(req,resp)=>{
+    const {appointment_id}=req.params;
+    try{
+        const appointment= await AppointmentModel.findById(appointment_id);
+        console.log(appointment);
+        if(appointment.status=="Pending"){
+            appointment.status="Complete";
+            await appointment.save();
+            resp.json({
+                success:true,
+                message:"Appointment is Complete Successfully",
+            })
+        }
+        else{
+            resp.json({
+                success:false,
+                message:"Appointment is already Complete"
+            })
+        }
+    }
+    catch(error){
+        console.log(error);
+        resp.json({
+            success:false,
+            message:"Error in api",
+        })
+    }
+}
 
 
-export { takeAppointment, totalAppointment, findPatientAppointment,PatientAppointmentDetail };
+export { takeAppointment, totalAppointment, findPatientAppointment,PatientAppointmentDetail,completeAppointment,getTodaysAppointments };

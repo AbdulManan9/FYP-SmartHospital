@@ -1,5 +1,5 @@
 import express from 'express';
-import { addDoctor,viewDoctorsList,removeDoctor,findDoctor,updateDoctor, findDoctorName } from '../controller/DoctorContoller.js';
+import { addDoctor,viewDoctorsList,removeDoctor,findDoctor,updateDoctor, findDoctorName, setPassword, logindoctor, updateDoctorPassword } from '../controller/DoctorContoller.js';
 
 import multer from 'multer';
 
@@ -22,4 +22,7 @@ DoctorRouter.delete("/deleteDoctor",removeDoctor);
 DoctorRouter.get("/findDoctor/:id",findDoctor);
 DoctorRouter.get("/findDoctorbyNmae/:doctorName",findDoctorName);
 DoctorRouter.put("/updateDoctors/:id",updateDoctor);
+DoctorRouter.post("/setPassword",setPassword);
+DoctorRouter.post("/login",logindoctor)
+DoctorRouter.post("/update",updateDoctorPassword);
 export default DoctorRouter;

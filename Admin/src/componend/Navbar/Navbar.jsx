@@ -32,6 +32,9 @@ const Navbar = () => {
           <NavLink to='/manageNurse'>
           <p>Manage Nurse</p>
           </NavLink>
+          <NavLink to='/WardAdmanistator'>
+          <p>WardAdmin</p>
+          </NavLink>
 
         </div>
       </div>

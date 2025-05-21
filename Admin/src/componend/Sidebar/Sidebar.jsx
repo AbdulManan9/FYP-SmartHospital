@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom'
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import { FaUserDoctor,FaHospital,FaUserNurse } from "react-icons/fa6";
 import { FaProcedures,FaUserCog } from "react-icons/fa";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 const Sidebar = () => {
   return (
     
@@ -39,6 +40,14 @@ const Sidebar = () => {
         <Box className='sidebar-option'>
           <FaUserNurse/>
           <p className='sidebar-txt'>Nurse</p>
+            
+        </Box>
+        </NavLink>
+
+        <NavLink to='/WardAdmanistator'>
+        <Box className='sidebar-option'>
+          <AccountCircleIcon/>
+          <p className='sidebar-txt'>WardAdmin</p>
             
         </Box>
         </NavLink>

@@ -69,7 +69,7 @@ const Navbar = () => {
 
       {/* Login Button */}
       <Box sx={{ width: '20%' }}>
-        <Typography sx={{ textAlign: 'end', color: 'white', marginRight: '18px' }}>Login</Typography>
+        <Typography sx={{ textAlign: 'end', color: 'white', marginRight: '18px' }}></Typography>
       </Box>
     </Box>
   );

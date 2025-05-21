@@ -4,15 +4,36 @@ import { NavLink, useLocation } from "react-router-dom";
 import axios from "axios";
 import AddMedicalRecord from "../../Componend/AddMedicalRecord";
 import WardsList from "../../Componend/WardsList";
+import PrescriptionRecord from "../../Componend/PrescriptionRecord";
 const AppointmentDetails = () => {
   const location = useLocation();
   const { doctor_id, patient_id,appointment_id } = location.state || {};
+  const [prescriptionStatus,setPrescriptionStatus]=useState(false);
+  const [medicalRecord_id,setMedicalRecordId]=useState('');
+  console.log("Patient id is");
+  console.log(patient_id);
+  
   // const [appointmentList, setAppointmentList] = useState([]);
   const [medicalRecordList, setMedicalRecordList] = useState([]);
   const [patientList, setPatientList] = useState(null); // Single patient object
   const [AddMedicalRecordStatus,setAddMedicalRecordStatus]=useState(false);
   const [wardstatus,setWardStatus]=useState(false);
   const [ward_id,setWardId]=useState("");
+  const completeAppointment=async()=>{
+    try{
+      const response=await axios.put(`http://localhost:4000/api/appointment/completeAppointment/${appointment_id}`)
+      if(response.data.success==true){
+        alert("Appointment is complete");
+      }
+      else{
+        alert(response.data.message);
+      }
+    }
+    catch(error){
+      console.log(error);
+      
+    }
+  }
   const fetchList = async () => {
     try {
       const response = await axios.post(
@@ -90,6 +111,10 @@ const AppointmentDetails = () => {
     }
   }
 
+  const handleonclosePres=()=>{
+    setPrescriptionStatus(false);
+  }
+
   
   useEffect(() => {
     console.log("Updated medicalRecordList:", medicalRecordList);
@@ -113,6 +138,7 @@ const AppointmentDetails = () => {
   return (
 
     <>
+    <PrescriptionRecord medicalRecord_id={medicalRecord_id} status={prescriptionStatus} onclose={handleonclosePres}/>
     <AddMedicalRecord status={AddMedicalRecordStatus} onclose={handleonclose} patient_id={patient_id} doctor_id={doctor_id}/>
     <WardsList status={wardstatus} onclose={handleonclose} setWard={setWard}/>
       <Box sx={{ display: 'flex', justifyContent: 'end', width: '95%', mt: '10px' }}>
@@ -193,12 +219,13 @@ const AppointmentDetails = () => {
               medicalRecordList.map((item, index) => {
                 return (
                   <>
-                    <Box key={index} sx={{
+                    <Box onClick={()=>{setMedicalRecordId(item._id);setPrescriptionStatus(true)}} key={index} sx={{
                       width: '330px',  // Removed extra space
                       padding: '10px',
                       border: '1px solid #CECECE',
                       borderRadius: '10px',
-                      flexShrink: 0
+                      flexShrink: 0,
+                      cursor:'pointer'
                     }}>
                       <Typography>{<b>Dignose: </b>}{item.dignosis}</Typography>
                       <Typography>{<b>TreatmentPlan : </b>}{item.treatmentPlan}</Typography>
@@ -219,7 +246,7 @@ const AppointmentDetails = () => {
         </Box>
         <Box sx={{ display: 'flex', justifyContent: 'end', gap: '10px', marginRight: '20px',marginTop:"10px" }}>
           <Button sx={{ color: 'white', backgroundColor: '#015170', border: "1px solid black" }} onClick={()=>setWardStatus(true)}>Admit </Button>
-          <Button sx={{ color: 'white', backgroundColor: '#015170', border: "1px solid black" }}>Discharge</Button>
+          <Button onClick={completeAppointment} sx={{ color: 'white', backgroundColor: '#015170', border: "1px solid black" }}>Not Admit</Button>
 
         </Box>
       </Box></>

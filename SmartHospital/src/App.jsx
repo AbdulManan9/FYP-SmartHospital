@@ -9,6 +9,7 @@ import AboutUs from './pages/AboutUs/AboutUs.jsx'
 import AppointmentForm from './pages/AppointmentForm/AppointmentForm.jsx'
 import MedicalRecord from './pages/MedicalRecord/MedicalRecord.jsx'
 import MedicalRecords from './pages/MedicalRecords/MedicalRecords.jsx'
+import PatientMedicalRecord from './pages/PatientMedicalRecord/PatientMedicalRecord.jsx'
 import { Routes, BrowserRouter, Route } from "react-router-dom";
 import QuestionAnswer from './pages/QuestionAnswer/QuestionAnswer.jsx'
 
@@ -29,6 +30,7 @@ const App = () => {
           <Route path='/MedicalRecord' element={<MedicalRecord/>}/>
           <Route path='/FrequentlyQuestion' element={<QuestionAnswer/>}/>
           <Route path='/MedicalRecords' element={<MedicalRecords/>}/>
+          <Route path='/PatientMedicalRecord' element={<PatientMedicalRecord/>}/>
         </Routes>
     
     <Footer/>

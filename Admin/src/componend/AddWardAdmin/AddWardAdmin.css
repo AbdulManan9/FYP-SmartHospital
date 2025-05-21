@@ -1,0 +1,25 @@
+
+.nurse-input-form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 30px 0px;
+}
+.nurse-input-form div{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+.nurse-input-form div input{
+    width: 47%;
+    padding: 10px 10px;
+    /* border-radius: 10px; */
+    border: 1px solid gray;
+}
+.nurse-input-button{
+    background-color: #00516F;
+    color: white;
+    font-size: 17px;
+    font-family: sans-serif;
+    border-radius: 22px;
+}

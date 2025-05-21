@@ -8,7 +8,7 @@ const admitRecordSchema=new mongoose.Schema({
     bed_id:{type:mongoose.Schema.Types.ObjectId,ref:"Bed"},
     admissionDate:{type:Date},
     dischargeDate:{type:Date},
-    status:{type:String,default:"admit"}
+    status:{type:String,default:"Pending"}
 })
 
 const AdmissionRecordModel = mongoose.models.admissionRecord || mongoose.model("admissionRecord", admitRecordSchema);

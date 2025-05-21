@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const appointmentSchema = new mongoose.Schema({
-    patient_id: { type: mongoose.Schema.Types.ObjectId, ref: "Patients" },
+    patient_id: { type: mongoose.Schema.Types.ObjectId, ref: "Patient" },
     doctor_id: { type: mongoose.Schema.Types.ObjectId, ref: "Doctor" },
     appointmentDate:{type:String},
     status: {

@@ -9,14 +9,18 @@ import { NavLink } from 'react-router-dom';
 
 const DashboardData = () => {
     const [date, setDate] = useState(new Date());
-    let doctor_id = "67b36e2d1f3a6b7e70481bfb";
+    // let doctor_id = "67b36e2d1f3a6b7e70481bfb";
+    const doctor_id = localStorage.getItem("doctorId");
+
     const [appointmentList, setAppointmentList] = useState([]);
     const [totalAppointment, setTotalAppointment] = useState("");
     const [totalAdmit, setTotalAdmit] = useState("");
+    const [totalTodayAppointment,setTotalTodayAppointment]=useState('')
     const fetchList = async () => {
         try {
             const response = await axios.post("http://localhost:4000/api/appointment/totalAppointment", { doctor_id });
             const res = await axios.get(`http://localhost:4000/api/admitRecord/totaladmit/${doctor_id}`)
+            const response3=await axios.get(`http://localhost:4000/api/appointment/todayAppointment/${doctor_id}`);
             if (response.data.success === true) {
                 setAppointmentList(response.data.data);
                 setTotalAppointment(response.data.totalData);
@@ -33,6 +37,12 @@ const DashboardData = () => {
             }
             else {
                 console.log(res.data.message)
+            }
+            if(response3.data.success==true){
+                setTotalTodayAppointment(response3.data.total);
+            }
+            else{
+                console.log(response3.data.data);
             }
         }
         catch (error) {
@@ -56,15 +66,18 @@ const DashboardData = () => {
             <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                 <Box sx={{ width: '90%', backgroundColor: 'white', borderRadius: '8px' }}>
                     <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', mt: '10px', marginBottom: '5px' }}>
-
+                        <NavLink to='/Appointment' state={doctor_id} style={{textDecoration:'none'}}>
                         <Box sx={{ border: '1px solid gray', borderRadius: '11px' }}>
-                            <Typography sx={{ fontSize: '18px', fontWeight: '600', padding: '2px 13px' }}>Total Appointment</Typography>
+                            <Typography sx={{ fontSize: '18px', fontWeight: '600', padding: '2px 13px',color:'black' }}>Total Appointment</Typography>
                             <Typography sx={{ padding: '2px 13px', color: '#016281', fontWeight: '700', fontSize: '18px' }}>{totalAppointment}</Typography>
                         </Box>
+                        </NavLink>
+                        <NavLink to='/todayAppointment' state={doctor_id} style={{textDecoration:'none'}}>
                         <Box sx={{ border: '1px solid gray', borderRadius: '11px' }}>
-                            <Typography sx={{ fontSize: '18px', fontWeight: '600', padding: '2px 13px' }}>Today Appointment</Typography>
-                            <Typography sx={{ padding: '2px 13px', color: '#016281', fontWeight: '700', fontSize: '18px' }}>10</Typography>
+                            <Typography sx={{ fontSize: '18px', fontWeight: '600', padding: '2px 13px',color:'black' }}>Today Appointment</Typography>
+                            <Typography sx={{ padding: '2px 13px', color: '#016281', fontWeight: '700', fontSize: '18px' }}>{totalTodayAppointment}</Typography>
                         </Box>
+                        </NavLink>
                         <NavLink to='/admitPatients' state={doctor_id} style={{textDecoration:'none'}}>
                             <Box sx={{ border: '1px solid gray', borderRadius: '11px'}}>
                                 <Typography sx={{ fontSize: '18px', fontWeight: '600', padding: '2px 13px',color:'black' }}>Total Admited Patient</Typography>
@@ -91,8 +104,8 @@ const DashboardData = () => {
                                 </NavLink>
                             </Box>
                             <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', mt: '5px' }}>
-                                <b style={{ fontFamily: 'sans-serif' }}>Patient Id</b>
-                                <b style={{ fontFamily: 'sans-serif' }}>Doctor Id</b>
+                                <b style={{ fontFamily: 'sans-serif' }}>PatientName</b>
+                                <b style={{ fontFamily: 'sans-serif' }}>DoctorName</b>
                                 <b style={{ fontFamily: 'sans-serif' }}>Appointment Date</b>
                                 <b style={{ fontFamily: 'sans-serif' }}>AppointmentStatue</b>
                             </Box>
@@ -102,8 +115,8 @@ const DashboardData = () => {
                                         appointmentList.map((item, index) => {
                                             return (  // ✅ Now it correctly returns JSX
                                                 <Box key={index} sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr' }}>
-                                                    <p>{item.patient_id}</p>
-                                                    <p>{item.doctor_id}</p>
+                                                    <p>{item.patient_id.name}</p>
+                                                    <p>{item.doctor_id.doctorName}</p>
                                                     <p>{item.appointmentDate}</p>
                                                     <p>{item.status}</p>
                                                 </Box>

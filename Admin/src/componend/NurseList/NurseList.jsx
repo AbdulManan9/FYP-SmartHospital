@@ -34,6 +34,7 @@ const NurseList = (props) => {
                             <b>Department</b>
                             <b>Designation</b>
                             <b>Shift</b>
+                            <b>Assighn Ward</b>
                         </div>
                         {Array.isArray(list) && list.length > 0 ? (
                             list.map((item, index) => (
@@ -43,6 +44,7 @@ const NurseList = (props) => {
                                     <p>{item.Department}</p>
                                     <p>{item.Designation}</p>
                                     <p>{item.Shift}</p>
+                                    <p>{item.dutyWard?.wardNumber}</p>
                                 </div>
                             ))
                         ) : (

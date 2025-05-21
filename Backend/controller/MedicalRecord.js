@@ -1,4 +1,5 @@
 import MedicalRecordModel from "../models/MedicalRecordModel.js"
+import PatientModel from "../models/PatientModel.js";
 
 // add Medical Record
 
@@ -68,4 +69,42 @@ const FindPatientRecord=async(req,resp)=>{
     }
 }
 
-export {addMedicalRecord,FindPatientRecord};
+//Pateint medical Record
+
+const PatientMedical=async(req,resp)=>{
+    const {cnic}=req.params;
+    console.log(cnic);
+    try{
+        const Patient= await PatientModel.findOne({cnic});
+        console.log("Patient is ");
+        console.log(Patient);
+        if(!Patient){
+            return resp.json({
+                success:false,
+                message:"There is no patient exist with this cnic",
+            })
+        }
+        const MedicalRecords=await MedicalRecordModel.find({patient_id:Patient._id});
+        if(MedicalRecords.length<0){
+            return resp.json({
+                success:false,
+                message:"There is no medical Record exist"
+            })
+        }
+        return resp.json({
+            success:true,
+            data:MedicalRecords
+        })
+        
+    }
+    catch(error){
+        console.log(error);
+        resp.json({
+            success:false,
+            message:"Error in api",
+            error:error,
+        })
+    }
+}
+
+export {addMedicalRecord,FindPatientRecord,PatientMedical};

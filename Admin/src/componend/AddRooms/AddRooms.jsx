@@ -4,11 +4,11 @@ import axios from 'axios';
 import './AddRooms.css'
 const AddRoom = (props) => {
     const roomState = props.roomState;
-
+    const ward_id=props.wardId;
     // State to store form input values
     const [roomData, setRoomData] = useState({
         roomNumber: '',
-        ward: '',
+        ward: ward_id,
         totalBeds: ''
     });
 
@@ -49,14 +49,7 @@ const AddRoom = (props) => {
                         onChange={handleChange}
                         required
                     />
-                    <input
-                        type='text'
-                        name='ward'
-                        placeholder='Enter Ward'
-                        value={roomData.ward}
-                        onChange={handleChange}
-                        required
-                    />
+                    
                     <input
                         type='number'
                         name='totalBeds'

@@ -8,9 +8,9 @@
     font-size: 13px;
 }
 .room-list-main-div{
-    width: 70%;
+    width: 100%;
     background-color: white;
-    height: 70%;
+    height: 80%;
     overflow-x: scroll;
     scrollbar-width: none;
     

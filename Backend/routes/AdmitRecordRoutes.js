@@ -1,7 +1,10 @@
 import express from "express";
-import { admitPatient } from "../controller/AdmitRecordcontroller.js";
+import { admitPatient, admitRecord, dischargePatient, PatientInRoom } from "../controller/AdmitRecordcontroller.js";
 import { totaladmitPatient } from "../controller/AdmitRecordcontroller.js";
 const admitRecordRouter=express.Router();
 admitRecordRouter.post("/admitPatient",admitPatient);
 admitRecordRouter.get("/totaladmit/:doctor_id",totaladmitPatient);
+admitRecordRouter.post("/PatientadmitRecord",admitRecord);
+admitRecordRouter.put("/dischargePatient/:id",dischargePatient);
+admitRecordRouter.get("/PatientInRoom/:room_id",PatientInRoom);
 export default admitRecordRouter;

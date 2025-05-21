@@ -2,13 +2,16 @@ import { Box, Typography, Button } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
-
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import MedicalRecordpdf from './MedicalRecordpdf';
 const MedicalRecord = (props) => {
+    const status = props.status;
     const patient_id = props.patient_id;
     const [medicalRecordList, setMedicalRecordList] = useState([]);
 
     const fetchMedicalRecord = async () => {
         try {
+
             const response = await axios.get(`http://localhost:4000/api/MedicalRecord/PatientRecord/${patient_id}`);
             if (response.data.success === true) {
                 console.log(response.data.message);
@@ -32,16 +35,16 @@ const MedicalRecord = (props) => {
     }
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Box sx={{ display: status === "Medical" ? "flex" : "none", flexDirection: 'column', alignItems: 'center' }}>
 
             <Box sx={{ backgroundColor: 'white', width: '95%', py: '10px' }}>
                 <Box sx={{ height: '60vh', display: 'flex', gap: '10px', overflow: 'scroll', scrollbarWidth: 'none', padding: '20px' }}>
                     {
                         Array.isArray(medicalRecordList) && medicalRecordList.length > 0 ? (
                             medicalRecordList.map((item, index) => (
-                                
-                                    <Box key={index}
-                                    onClick={() => props.openPrescription(item._id)}
+
+                                <Box key={index}
+                                    
                                     sx={{
                                         width: '330px',
                                         padding: '10px',
@@ -50,18 +53,40 @@ const MedicalRecord = (props) => {
                                         flexShrink: 0,
                                         overflow: 'scroll',
                                         scrollbarWidth: 'none',
-                                        
+
                                         '&:hover': { boxShadow: '0px 4px 10px rgba(0,0,0,0.25)' }
                                     }}>
-                                       
-                                        <Typography><b>Diagnosis:</b> {item.dignosis}</Typography>
-                                        <Typography><b>Treatment Plan:</b> {item.treatmentPlan}</Typography>
-                                        <Typography><b>Medical History:</b> {item.History}</Typography>
-                                        <Typography><b>Created At:</b> {item.date}</Typography>
-                                        
 
+                                    <Typography><b>Diagnosis:</b> {item.dignosis}</Typography>
+                                    <Typography><b>Treatment Plan:</b> {item.treatmentPlan}</Typography>
+                                    <Typography><b>Medical History:</b> {item.History}</Typography>
+                                    <Typography><b>Created At:</b> {item.date}</Typography>
+                                    <Box sx={{ marginTop: '10px',display:'flex',justifyContent:'space-between'}}>
+                                        <PDFDownloadLink
+                                            document={<MedicalRecordpdf record={item} />}
+                                            fileName={`MedicalRecord-${item._id}.pdf`}
+                                            style={{
+                                                textDecoration: "none",
+                                                padding: "6px 12px",
+                                                fontSize: "14px",
+                                                color: "white",
+                                                backgroundColor: "#015170",
+                                                borderRadius: "4px",
+                                            }}
+                                        >
+                                            {({ loading }) => loading ? "Preparing..." : "Download PDF"}
+                                        </PDFDownloadLink>
+                                        <button onClick={() => props.openPrescription(item._id)}  style={{
+                                            textDecoration: "none",
+                                            padding: "6px 12px",
+                                            fontSize: "14px",
+                                            color: "white",
+                                            backgroundColor: "#015170",
+                                            borderRadius: "4px",
+                                        }}>Prescription Record</button>
                                     </Box>
-                                
+                                </Box>
+
                             ))
                         ) : (
                             <Typography>There is no Medical Record available</Typography>

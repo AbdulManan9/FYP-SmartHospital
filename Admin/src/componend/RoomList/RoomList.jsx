@@ -32,7 +32,6 @@ const RoomList= (props) => {
                         <div className="room-list-table-format">
                             <b>Room id</b>
                             <b>Room Number</b>
-                            
                             <b>Beds</b>
                             
                         </div>

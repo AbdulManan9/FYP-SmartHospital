@@ -1,4 +1,4 @@
-    import mongoose from "mongoose";
+import mongoose from "mongoose";
 
 const nurseSchema=new mongoose.Schema({
     name:{type:String},
@@ -8,6 +8,10 @@ const nurseSchema=new mongoose.Schema({
     Department:{type:String},
     Designation:{type:String},
     Shift:{type:String},
+    Email:{type:String},
+    password:{type:String},
+    dutyWard:{type:mongoose.Schema.Types.ObjectId,ref:"Ward"},
+    token:{type:String}
 },
 { timestamps: true })
 

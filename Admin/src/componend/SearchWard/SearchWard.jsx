@@ -31,7 +31,7 @@ const SearchWard = (props) => {
   return (
     <div className={wardState==='Serch'?'search-ward-main-div':"none"}>
         <div className="search-div">
-      <input value={wardid} onChange={(e)=>setWardId(e.target.value)} type='text' placeholder='Enter Ward id'/>
+      <input value={wardid} onChange={(e)=>setWardId(e.target.value)} type='text' placeholder='Enter Ward Number'/>
       <button onClick={handleSearch}>Search</button>
       </div>
       <div className='serch-response-data'>
@@ -45,7 +45,7 @@ const SearchWard = (props) => {
           <p>{ward._id}</p>
           <p>{ward.wardName}</p>
           <p>{ward.wardNumber}</p>
-          <NavLink to="/Rooms" state={{ wardId: wardid }}>
+          <NavLink to="/Rooms" state={{ wardId: ward._id }}>
     <button className="room-btn">Rooms</button>
 </NavLink>
         </div>

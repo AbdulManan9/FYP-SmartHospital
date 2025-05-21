@@ -7,7 +7,7 @@ const patientSchema=new mongoose.Schema({
     contactNo:{type:String},
     Email:{type:String},
     cnic:{type:String},
-    status:{type:String,default:"Appointment"},
+    
 })
 
 const PatientModel= mongoose.model.Patient || mongoose.model("Patient",patientSchema);

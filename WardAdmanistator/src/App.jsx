@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from 'react';
+import { Routes, BrowserRouter, Route, Navigate, useLocation } from 'react-router-dom';
+import Dashboard from './pages/Dashboard/Dashboar';
+import PandingAdmission from './pages/PandingAdmission/PandingAdmission';
+import AdmitedPatientList from './pages/AdmitedPatientList/AdmitedPatientList';
+import Login from './pages/Login/Login';
 
-function App() {
-  const [count, setCount] = useState(0)
+const PrivateRoute = ({ element }) => {
+  const isAuthenticated = localStorage.getItem("token");
+  const location = useLocation();
+  
+  return isAuthenticated ? (
+    element
+  ) : (
+    <Navigate to="/login" state={{ from: location }} replace />
+  );
+};
 
+const App = () => {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <BrowserRouter>
+      <Routes>
+        {/* Public Route - Only accessible when not logged in */}
+        <Route path="/login" element={<Login />} />
+        
+        {/* Protected Routes - Require authentication */}
+        <Route path="/" element={<PrivateRoute element={<Dashboard />} />} />
+        <Route path="/pandingAdmission" element={<PrivateRoute element={<PandingAdmission />} />} />
+        <Route path="/totalAdmitedPatient" element={<PrivateRoute element={<AdmitedPatientList />} />} />
 
-export default App
+        {/* Redirect to login for any unknown routes if not authenticated */}
+        <Route path="*" element={
+          localStorage.getItem("token") ? (
+            <Navigate to="/" replace />
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        } />
+      </Routes>
+    </BrowserRouter>
+  );
+};
+
+export default App;

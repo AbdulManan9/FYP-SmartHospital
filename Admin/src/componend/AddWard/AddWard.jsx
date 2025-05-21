@@ -32,6 +32,9 @@ const AddWard = (props) => {
                 // Clear form after submission
                 setWardData({ wardName: '', department: '', wardNo: '' });
             }
+            else{
+                alert(response.data.message);
+            }
         } catch (error) {
             console.error('Error adding ward:', error);
             alert('Failed to add ward. Please try again.');

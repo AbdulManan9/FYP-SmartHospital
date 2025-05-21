@@ -8,6 +8,7 @@ import staff from './staffs.jpg';
 import strategy from './strategy.jpg';
 import History from './Historical.jpg';
 import Record from './Vector-form.png';
+import Logo2 from './logo2.png';
 export const assets={
     Logo,
     header1Img,
@@ -18,5 +19,6 @@ export const assets={
     staff,
     strategy,
     History,
-    Record
+    Record,
+    Logo2
 }

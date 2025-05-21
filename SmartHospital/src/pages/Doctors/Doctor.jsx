@@ -71,14 +71,14 @@ const DoctorList = () => {
     return (
         <>
             <Box>
-                <Box sx={{ width: "70%", backgroundColor: 'red', margin: 'auto', marginTop: '20px' }}>
+                
                     <DoctorSchedule 
                         scheduleState={scheduleState} 
                         doctorId={doctorId} 
                         name={doctorName} 
                         onClose={handleCloseSchedule} 
                     />
-                </Box>
+                
                 
                 <Container>
                     <Typography variant='h4' sx={{ color: '#005E7D', mt: 5 }}>Find a Doctor</Typography>

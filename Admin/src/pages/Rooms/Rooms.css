@@ -3,22 +3,64 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 80vh;
     display: flex;
     flex-direction: column;
+    
 }
 .room-page-main-div-button-div{
-    background-attachment: red;
+    
     width: 70%;
     display: flex;
     justify-content: space-around;
 }
 .display-room-list{
     display: block;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+
 }
 .none{
     display: none;
 }
 .display-add-room{
     display: block;
+    background-color: white;
+    padding: 30px;
+    border-radius: 6px;
+    border: 1px solid gray;
+}
+.add-room-btn{
+    margin-top: 10px;
+    width: 150px;
+    height: 30px;
+    color: #006281;
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: 600;
+}
+.back-btn{
+    text-align: end;
+    padding-right: 50px;
+    padding-top: 20px;
+}
+.back-btn button{
+    width: 100px;
+    height: 30px;
+    font-family: sans-serif;
+    font-weight: 600;
+}
+.cross{
+    text-align: end;
+}
+.cross p{
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 10px;
 }

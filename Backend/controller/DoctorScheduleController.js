@@ -50,4 +50,29 @@ const addOrUpdateTimetable = async (req, res) => {
     }
 };
 
-export { addOrUpdateTimetable };
+const findSchedule=async(req,resp)=>{
+    const {doctorId}=req.params;
+    try{
+        const doctorSchedule=await DoctorScheduleModel.find({doctor_id:doctorId});
+        if(doctorSchedule.length==0){
+            return resp.json({
+                success:false,
+                message:"There no schedule exist",
+            })
+        }
+        resp.json({
+            success:true,
+            message:"Schedule exist",
+            data:doctorSchedule,
+        })
+    }
+    catch(error){
+        console.log(error);
+        return resp.json({
+            success:false,
+            message:"Error in api",
+            error:error
+        })
+    }
+}
+export { addOrUpdateTimetable,findSchedule };

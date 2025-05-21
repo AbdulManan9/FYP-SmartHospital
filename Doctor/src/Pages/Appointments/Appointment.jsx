@@ -69,11 +69,12 @@ const Appointment = () => {
                 <Box sx={{ width: '90%', backgroundColor: 'white', height: '75vh', overflow: 'scroll', scrollbarWidth: 'none' }}>
 
                     <Box sx={{ display: 'grid', gridTemplateColumns: '1.5fr 1.5fr 1fr 1fr 1fr', p: '10px', borderBottom: "1px solid #b9b6b6" }}>
-                        <b style={{ fontFamily: 'sans-serif' }}>Patient Id</b>
-                        <b style={{ fontFamily: 'sans-serif' }}>Doctor Id</b>
+                        <b style={{ fontFamily: 'sans-serif' }}>PatientName</b>
+                        <b style={{ fontFamily: 'sans-serif' }}>DoctorName</b>
                         <b style={{ fontFamily: 'sans-serif' }}>Appointment Date</b>
                         <b style={{ fontFamily: 'sans-serif' }}>AppointmentStatus</b>
                         <b style={{ fontFamily: 'sans-serif' }}>ChuckUp</b>
+                        
                     </Box>
                     <Box sx={{ pl: '10px' }}>
                         {
@@ -81,11 +82,11 @@ const Appointment = () => {
                                 appointmentList.map((item, index) => {  
                                     return (  // ✅ Now it correctly returns JSX
                                         <Box key={index} sx={{ display: 'grid', gridTemplateColumns: '1.5fr 1.5fr 1fr 1fr 1fr', height: '35px' }}>
-                                            <p>{item.patient_id}</p>
-                                            <p>{item.doctor_id}</p>
+                                            <p>{item.patient_id.name}</p>
+                                            <p>{item.doctor_id.doctorName}</p>
                                             <p>{item.appointmentDate}</p>
                                             <p>{item.status}</p>
-                                            <NavLink to='/PatientAppointmentDetails'  state={{ doctor_id: item.doctor_id, patient_id: item.patient_id, appointment_id:item._id }}>
+                                            <NavLink to='/PatientAppointmentDetails'  state={{ doctor_id: item.doctor_id._id, patient_id: item.patient_id._id, appointment_id:item._id }}>
                                             <Button sx={{ width: '118px', height: '29px', marginTop: '2px', backgroundColor: '#E5E5E5', color: 'black', border: "1px solid black",  "&:hover": { color: 'white',backgroundColor:'#015170' } }}>Details</Button>
                                             </NavLink>
                                         </Box>

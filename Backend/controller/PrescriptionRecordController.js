@@ -35,7 +35,7 @@ const addPrescription=async(req,resp)=>{
 const PrescriptionRecord=async(req,resp)=>{
     try{
         const {medicalRecord_id}=req.params;
-        const Prescription=await PrescriptionModel.find({medicalRecord_id});
+        const Prescription=await PrescriptionModel.find({medicalRecord_id}).populate("doctor_id", "doctorName") ;
         if(Prescription.length > 0)
             {
             resp.json({
@@ -59,4 +59,35 @@ const PrescriptionRecord=async(req,resp)=>{
     }
 }
 
-export {addPrescription,PrescriptionRecord}
+// Api that is used to delete Prescription
+const DeletePrescription = async (req, resp) => {
+    try {
+        const { id } = req.params;
+
+        // ❌ WRONG: deleteById → ❌ Not a valid Mongoose method
+        // ✅ CORRECT: Use findByIdAndDelete
+        const deletePres = await PrescriptionModel.findByIdAndDelete(id);
+
+        if (!deletePres) {
+            return resp.json({
+                success: false,
+                message: "Prescription not found or already deleted",
+            });
+        }
+
+        return resp.json({
+            success: true,
+            message: "Prescription deleted successfully",
+        });
+    } catch (error) {
+        console.log(error);
+        return resp.status(500).json({
+            success: false,
+            message: "Internal server error",
+            error: error.message,
+        });
+    }
+};
+
+
+export {addPrescription,PrescriptionRecord,DeletePrescription}

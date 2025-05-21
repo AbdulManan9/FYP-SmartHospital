@@ -44,6 +44,7 @@ import ManageNurses from "./pages/ManageNurses/ManageNurses";
 import ManageWard from "./pages/ManageWard/ManageWard";
 import Rooms from "./pages/Rooms/Rooms";
 import ForgetPassword from "./pages/ForgetPassword/ForgetPassword";
+import ManageWardAdmanistator from "./pages/ManageWardAdmanistator/ManageWardAdmanistator";
 
 const PrivateRoute = ({ element }) => {
   const isAuthenticated = localStorage.getItem("token");
@@ -61,6 +62,7 @@ const App = () => {
           <Route path="/manageNurse" element={<PrivateRoute element={<ManageNurses />} />} />
           <Route path="/manageWard" element={<PrivateRoute element={<ManageWard />} />} />
           <Route path="/Rooms" element={<PrivateRoute element={<Rooms />} />} />
+          <Route path="/WardAdmanistator" element={<PrivateRoute element={<ManageWardAdmanistator />} />} />
           <Route path="/ForgetPassword" element={<ForgetPassword />}/>
         </Routes>
       </div>
