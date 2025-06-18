@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { Box, Typography,Button } from '@mui/material'
 import { useLocation } from 'react-router-dom'
 import { NavLink } from 'react-router-dom';
+import Navbar from '../../Componend/Navbar';
 import axios from 'axios';
 
 const AdmitPatientList = () => {
-    const location = useLocation();
-    const doctor_id = location.state;
+    
+    const doctor_id = localStorage.getItem('doctorId');
     const [admitPatientList, setAdmitPatientList] = useState([]);
     const Satate="Admit";
 
@@ -31,21 +32,25 @@ const AdmitPatientList = () => {
 
     return (
         <Box >
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'end', mt: '10px'}}>
+            <Box sx={{display:{xs:'block',sm:'none'}}}>
+                        <Navbar/>
+                        <hr/>
+                    </Box>
+            <Box sx={{ width: '100%', display:{xs:'none',sm:'flex'}, justifyContent: 'end', mt: '10px'}}>
                 <NavLink to='/'>
                     <Button sx={{ backgroundColor: '#E5E5E5', color: 'black', border: "1px solid black",marginRight:'20px', "&:hover": { color: 'white', backgroundColor: '#015170', border: '1px solid white' } }}>Back to Dashboard</Button>
                 </NavLink>
             </Box>
             
             <Box sx={{ display: 'flex', justifyContent: 'center',mt:'20px' }}>
-                <Box sx={{ width: { xs: "100%", md: "80%" }, backgroundColor: 'white', alignSelf: 'center' }}>
-                    <Box sx={{ display: 'grid', gridTemplateColumns: '1.3fr 1fr 1fr 1fr 2fr 1fr', padding: '10px',  }}>
-                        <b>PatientName</b>
-                        <b>wardNumber</b>
-                        <b>RoomNumber</b>
-                        <b>BedNumber</b>
-                        <b>AdmitedDate</b>
-                        <b>AdmissionStatus</b>
+                <Box sx={{ width: { xs: "95%", md: "80%" }, backgroundColor: 'white', alignSelf: 'center' }}>
+                    <Box sx={{ display: 'grid', gridTemplateColumns:{xs:'1.4fr 1fr 1fr',sm:'1.3fr 1fr 1fr 1fr 2fr 1fr'} , padding: '10px',  }}>
+                        <Typography >PatientName</Typography>
+                        <Typography>wardNumber</Typography>
+                        <Typography>RoomNumber</Typography>
+                        <Typography sx={{display:{xs:'none',sm:'block'}}}>BedNumber</Typography>
+                        <Typography sx={{display:{xs:'none',sm:'block'}}}>AdmitedDate</Typography>
+                        <Typography sx={{display:{xs:'none',sm:'block'}}}>AdmissionStatus</Typography>
                     </Box>
                     <Box sx={{ height: '70vh', overflow: 'scroll', scrollbarWidth: 'none' }}>
                         {
@@ -60,7 +65,7 @@ const AdmitPatientList = () => {
                                         <Box
                                             sx={{
                                                 display: 'grid',
-                                                gridTemplateColumns: '1.3fr 1fr 1fr 1fr 2fr 1fr',
+                                                gridTemplateColumns:{xs:'1.5fr 1fr 1fr',sm:'1.3fr 1fr 1fr 1fr 2fr 1fr'},
                                                 margin: '5px',
                                                 padding: '5px',
                                                 cursor: 'pointer',
@@ -71,9 +76,9 @@ const AdmitPatientList = () => {
                                             <Typography>{item.patient_id?.name}</Typography>
                                             <Typography>{item.ward_id?.wardNumber}</Typography>
                                             <Typography>{item.room_id?.roomNumber}</Typography>
-                                            <Typography>{item.bed_id?.bed_no}</Typography>
-                                            <Typography>{item.admissionDate}</Typography>
-                                            <Typography>{item.status}</Typography>
+                                            <Typography sx={{display:{xs:'none',sm:'block'}}}>{item.bed_id?.bed_no}</Typography>
+                                            <Typography sx={{display:{xs:'none',sm:'block'}}}>{item.admissionDate}</Typography>
+                                            <Typography sx={{display:{xs:'none',sm:'block'}}}>{item.status}</Typography>
                                         </Box>
                                     </NavLink>
                                 ))

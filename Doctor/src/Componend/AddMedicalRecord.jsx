@@ -43,10 +43,11 @@ const AddMedicalRecord = (props) => {
             justifyContent: 'center',
             alignItems: 'center',
             zIndex: '1000',
-            display: status ? "block" : "none",
+            display: status ? "flex" : "none",
+            
 
         }}>
-            <Box sx={{ width: { md: "70%", xs: '100%' }, borderRadius: '10px', backgroundColor: "#e5e5e5", backdropFilter: 'blur(5px)', zIndex: '1000', boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.5)', margin: 'auto' }}>
+            <Box sx={{ width: { md: "70%", xs: '90%' }, borderRadius: '10px', backgroundColor: "#e5e5e5", backdropFilter: 'blur(5px)', zIndex: '1000', boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.5)', margin: 'auto' }}>
                 <Box sx={{ padding: '10px 20px' }}>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography variant='h5' sx={{ color: '#016483' }}>Add Patient Medical Record</Typography>

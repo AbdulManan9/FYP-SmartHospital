@@ -3,6 +3,7 @@ import { Routes, BrowserRouter, Route, Navigate, useLocation } from 'react-route
 import Dashboard from './pages/Dashboard/Dashboar';
 import PandingAdmission from './pages/PandingAdmission/PandingAdmission';
 import AdmitedPatientList from './pages/AdmitedPatientList/AdmitedPatientList';
+import DischargeList from './pages/DischargeList/DischargeList';
 import Login from './pages/Login/Login';
 
 const PrivateRoute = ({ element }) => {
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="/" element={<PrivateRoute element={<Dashboard />} />} />
         <Route path="/pandingAdmission" element={<PrivateRoute element={<PandingAdmission />} />} />
         <Route path="/totalAdmitedPatient" element={<PrivateRoute element={<AdmitedPatientList />} />} />
+        <Route path="/dischargePatientList" element={<PrivateRoute element={<DischargeList />} />} />
 
         {/* Redirect to login for any unknown routes if not authenticated */}
         <Route path="*" element={

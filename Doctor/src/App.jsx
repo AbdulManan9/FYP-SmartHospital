@@ -9,7 +9,7 @@ import SetPassword from './Componend/SetPassword.jsx';
 import Login from './Pages/Login/Login.jsx';
 import TodayAppointment from "./Pages/TodayAppointment/TodayAppointment.jsx";
 import MonitorWard from "./Pages/MonitorWard/MonitorWard.jsx";
-
+import Profile from "./Pages/Profile/Profile.jsx";
 // Your previous project's PrivateRoute logic
 const PrivateRoute = ({ element }) => {
   const isAuthenticated = localStorage.getItem("token");
@@ -33,8 +33,7 @@ const App = () => {
         <Route path="/PatientDetails" element={<PrivateRoute element={<PatientDetails />} />} />
         <Route path="/todayAppointment" element={<PrivateRoute element={<TodayAppointment />} />} />
         <Route path="/wardMonitoring" element={<PrivateRoute element={<MonitorWard />} />} />
-
-
+        <Route path="/Profile" element={<PrivateRoute element={<Profile/>}/>}/>
       </Routes>
     </BrowserRouter>
   );

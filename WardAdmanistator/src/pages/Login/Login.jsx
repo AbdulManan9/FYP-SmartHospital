@@ -22,6 +22,7 @@ const Login = () => {
                 // Store token in localStorage
                 localStorage.setItem("token", response.data.token);
                 localStorage.setItem("wardAdmin_id", response.data.data._id);
+                localStorage.setItem("dutyWard", response.data.data.dutyWard);
                 toast.success(response.data.message, { position: "top-right" });
                 
                 // Redirect to home page

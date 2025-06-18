@@ -34,28 +34,28 @@ const MonitorWard = () => {
 
     return (
         <Box>
-            <RoomList id={id} status={status} onclose={onclose}/>
+            
             <Navbar />
             <hr />
-
-            <Box sx={{ display: 'flex' }}>
-                <Box sx={{ borderRight: '1px solid gray', width: '18%' }}>
+            <RoomList id={id} status={status} onclose={onclose}/>
+            <Box sx={{ display: 'flex',justifyContent:{xs:'center',sx:'normal',alignItems:{xs:'center',sm:'normal'}} }}>
+                <Box sx={{ borderRight: '1px solid gray', width: '18%',display: {xs:'none',md:'block'}}}>
                     <Sidebar />
                 </Box>
-                <Box sx={{ width: '82%',display:'flex',justifyContent:'center',alignItems:'center'}}>
+                <Box sx={{ width:{xs:'90%',md:'82%'},display:'flex',justifyContent:'center',alignItems:'center'}}>
                     <Box sx={{ width: '90%',backgroundColor:'white',padding:'20px'}}>
-                        <Box  sx={{display:'grid',gridTemplateColumns:'2fr 1fr 1fr'}}>
-                            <b>Ward id</b>
-                            <b>Ward Name</b>
-                            <b>Ward Number</b>
+                        <Box  sx={{display:'grid',gridTemplateColumns:{xs:' 1fr 1fr'}}}>
+                            <Typography sx={{display:{xs:'none',sm:'block'} }} fontWeight='bold'>Ward id</Typography>
+                            <Typography fontWeight='bold'>Ward Name</Typography>
+                            <Typography fontWeight='bold'>Ward Number</Typography>
                         </Box>
                         <Box sx={{height:'60vh',overflow:'scroll',scrollbarWidth:'none'}}>
                         {Array.isArray(list) && list.length > 0 ? (
                             list.map((item, index) => (
                                 <Box onClick={()=>{setRoomStatus(true);setWardId(item._id)}} key={index} sx={{display:'grid',gridTemplateColumns:'2fr 1fr 1fr',cursor:'pointer','&:hover':{border:'1px solid gray',borderRadius:'10px'}}}>
-                                    <p>{item._id}</p>
-                                    <p>{item.wardName}</p>
-                                    <p>{item.wardNumber}</p>
+                                    <Typography sx={{display:{xs:'none',sm:'block'}}}>{item._id}</Typography>
+                                    <Typography>{item.wardName}</Typography>
+                                    <Typography>{item.wardNumber}</Typography>
 
                                 </Box>
                             ))

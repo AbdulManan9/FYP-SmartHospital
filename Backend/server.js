@@ -12,8 +12,11 @@ import MedicalRecordRouter from "./routes/MedicalRecordRoutes.js";
 import admitRecordRouter from "./routes/AdmitRecordRoutes.js";
 import PrescriptionRouter from "./routes/PrescriptionRoutes.js";
 import wardAdminRoutes from "./routes/wardAdminRoutes.js";
+import labAdminRouter from "./routes/LabAdminRoutes.js";
 import vitalRecordRouter from "./routes/VitalRecordRoutes.js";
+import testRouter from "./routes/TestRoutes.js";
 import "dotenv/config.js";
+import userRouter from "./routes/userRoutes.js";
 
 
 
@@ -42,6 +45,9 @@ app.use("/api/admitRecord",admitRecordRouter);
 app.use("/api/prescription",PrescriptionRouter);
 app.use("/api/wardAdmin",wardAdminRoutes);
 app.use("/api/vital",vitalRecordRouter);
+app.use("/api/test",testRouter);
+app.use("/api/labAdmin",labAdminRouter);
+app.use("/api/user",userRouter);
 
 app.get("",(req,resp)=>{
     resp.send("Hellow this is my fyp api");

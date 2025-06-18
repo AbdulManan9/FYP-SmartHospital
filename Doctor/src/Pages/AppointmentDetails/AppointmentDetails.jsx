@@ -162,10 +162,10 @@ const AppointmentDetails = () => {
               </Typography>
               <Typography>{patientList.name}</Typography>
 
-              <Typography variant="subtitle1" fontWeight="bold">
+              <Typography sx={{display:{xs:"none",sm:'block'}}}variant="subtitle1" fontWeight="bold">
                 Patient ID
               </Typography>
-              <Typography>{patientList._id}</Typography>
+              <Typography sx={{display:{xs:"none",sm:'block'}}}>{patientList._id}</Typography>
             </Grid>
 
             {/* Middle Column */}

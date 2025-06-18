@@ -6,7 +6,7 @@ import PatientModel from "../../models/PatientModel.js";
 const AddWard=async(req,resp)=>{
     const{wardNumber}=req.body;
     try{
-        const ward=WardModel.findOne({wardNumber});
+        const ward=await WardModel.findOne({wardNumber});
         if (ward) {
             return resp.json({
                 success: false,

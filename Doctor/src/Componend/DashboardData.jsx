@@ -63,30 +63,37 @@ const DashboardData = () => {
     }, [appointmentList, totalAppointment, totalAdmit]); // ✅ Logs when state updates
     return (
         <>
-            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center',alignItems:{xs:"center",sm:'normal'} }}>
                 <Box sx={{ width: '90%', backgroundColor: 'white', borderRadius: '8px' }}>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', mt: '10px', marginBottom: '5px' }}>
-                        <NavLink to='/Appointment' state={doctor_id} style={{textDecoration:'none'}}>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', mt: '10px', marginBottom: '5px',flexDirection:{xs:'column',sm:'row'},alignItems:{xs:'center',sm:'none'},gap:{xs:'20px',sm:'0px'},my:{xs:"40px",sm:"10px"} }}>
+                        <Box sx={{width:{xs:'90%',sm:'28%'}}}>
+            
+                        <NavLink to='/Appointment' state={doctor_id} style={{textDecoration:'none',width:{xs:'90%',sm:'normal'}}}>
                         <Box sx={{ border: '1px solid gray', borderRadius: '11px' }}>
                             <Typography sx={{ fontSize: '18px', fontWeight: '600', padding: '2px 13px',color:'black' }}>Total Appointment</Typography>
                             <Typography sx={{ padding: '2px 13px', color: '#016281', fontWeight: '700', fontSize: '18px' }}>{totalAppointment}</Typography>
                         </Box>
                         </NavLink>
-                        <NavLink to='/todayAppointment' state={doctor_id} style={{textDecoration:'none'}}>
+                        </Box>
+                        <Box sx={{width:{xs:'90%',sm:'28%'}}}>
+                        <NavLink to='/todayAppointment' state={doctor_id} style={{textDecoration:'none',width:{xs:'90%',sm:'normal'}}}>
                         <Box sx={{ border: '1px solid gray', borderRadius: '11px' }}>
                             <Typography sx={{ fontSize: '18px', fontWeight: '600', padding: '2px 13px',color:'black' }}>Today Appointment</Typography>
                             <Typography sx={{ padding: '2px 13px', color: '#016281', fontWeight: '700', fontSize: '18px' }}>{totalTodayAppointment}</Typography>
                         </Box>
                         </NavLink>
-                        <NavLink to='/admitPatients' state={doctor_id} style={{textDecoration:'none'}}>
+                        </Box>
+                        <Box sx={{width:{xs:'90%',sm:'28%'}}}>
+                        <NavLink to='/admitPatients' state={doctor_id} style={{textDecoration:'none',width:{xs:'90%',sm:'normal'}}}>
                             <Box sx={{ border: '1px solid gray', borderRadius: '11px'}}>
                                 <Typography sx={{ fontSize: '18px', fontWeight: '600', padding: '2px 13px',color:'black' }}>Total Admited Patient</Typography>
                                 <Typography sx={{ padding: '2px 13px', color: '#016281', fontWeight: '700', fontSize: '18px' }}>{totalAdmit}</Typography>
                             </Box>
                         </NavLink>
+                        </Box>
 
                     </Box>
-                    <Box sx={{ marginTop: "10px", display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
+                    <Box sx={{ marginTop: "10px", display: {xs:'none',sm:'flex'}, justifyContent: 'space-around', alignItems: 'center' }}>
                         <Box sx={{ textAlign: "center", width: '35%' }}>
                             <Calendar onChange={setDate} value={date} style={{ width: '100%' }} />
                         </Box>
@@ -94,7 +101,7 @@ const DashboardData = () => {
                             <img style={{ width: '100%' }} src={assets.DashbordImg} />
                         </Box>
                     </Box>
-                    <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px', pb: '2px' }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px', pb: '2px',my:{xs:'20px',sm:'none'} }}>
                         <Box sx={{ width: "90%", borderRadius: "10px", border: '1px solid gray', padding: '2px 10px' }}>
                             <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <Typography sx={{ color: '#007D9D', fontWeight: '600' }}>Appointment Details</Typography>
@@ -103,22 +110,22 @@ const DashboardData = () => {
 
                                 </NavLink>
                             </Box>
-                            <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr', mt: '5px' }}>
-                                <b style={{ fontFamily: 'sans-serif' }}>PatientName</b>
-                                <b style={{ fontFamily: 'sans-serif' }}>DoctorName</b>
-                                <b style={{ fontFamily: 'sans-serif' }}>Appointment Date</b>
-                                <b style={{ fontFamily: 'sans-serif' }}>AppointmentStatue</b>
+                            <Box sx={{ display: 'grid', gridTemplateColumns:{xs:'0.7fr 1fr',sm:'1fr 1fr 1fr 1fr'}, mt: '5px' }}>
+                                <Typography style={{ fontFamily: 'sans-serif',fontWeight:"bold" }}>PatientName</Typography>
+                                <Typography sx={{ fontFamily: 'sans-serif',fontWeight:"bold",display:{xs:"none",sm:"block"} }}>DoctorName</Typography>
+                                <Typography style={{ fontFamily: 'sans-serif',fontWeight:"bold" }}>Appointment Date</Typography>
+                                <Typography sx={{ fontFamily: 'sans-serif',fontWeight:"bold",display:{xs:"none",sm:"block"} }}>AppointmentStatue</Typography>
                             </Box>
                             <Box sx={{ height: '15vh', overflowX: 'scroll', scrollbarWidth: 'none' }}>
                                 {
                                     Array.isArray(appointmentList) && appointmentList.length > 0 ? (
                                         appointmentList.map((item, index) => {
                                             return (  // ✅ Now it correctly returns JSX
-                                                <Box key={index} sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr' }}>
-                                                    <p>{item.patient_id.name}</p>
-                                                    <p>{item.doctor_id.doctorName}</p>
-                                                    <p>{item.appointmentDate}</p>
-                                                    <p>{item.status}</p>
+                                                <Box key={index} sx={{ display: 'grid', gridTemplateColumns:{xs:'1fr 1fr ',sm:'1fr 1fr 1fr 1fr'}, }}>
+                                                    <Typography >{item.patient_id.name}</Typography >
+                                                    <Typography sx={{display:{xs:"none",sm:"block"}}}>{item.doctor_id.doctorName}</Typography >
+                                                    <Typography >{item.appointmentDate}</Typography >
+                                                    <Typography sx={{display:{xs:"none",sm:"block"}}}>{item.status}</Typography >
                                                 </Box>
                                             );
                                         })

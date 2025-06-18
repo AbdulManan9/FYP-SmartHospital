@@ -3,11 +3,15 @@ import './Navbar.css'
 import { assets } from '../../assets/assets'
 import { Box, Typography } from '@mui/material';
 import { NavLink } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 
 const Navbar = () => {
   const [menustatus, setmenuStatus] = useState(false);
-
+  const token=localStorage.getItem('token');
+  const Logout=()=>{
+    localStorage.removeItem('token');
+  }
   return (
     <Box className='navbar-main-Box' sx={{ backgroundColor: '#005E7D', display: 'flex', alignItems: 'center', justifyContent: { xs: 'space-between', md: 'none' }, position: 'relative', zIndex: 10 }}>
       
@@ -47,7 +51,7 @@ const Navbar = () => {
       )}
 
       {/* Navbar Logo */}
-      <Box className="navbar-logo" sx={{ '& img': { width: '60px', marginLeft: '18px' }, width: { md: '25%' }, display: 'flex', alignItems: 'center' }}>
+      <Box className="navbar-logo" sx={{ '& img': { width: '80px', marginLeft: '18px' }, width: { md: '25%' }, display: 'flex', alignItems: 'center' }}>
         <img src={assets.Logo} alt="Logo" />
       </Box>
 
@@ -68,8 +72,11 @@ const Navbar = () => {
       </Box>
 
       {/* Login Button */}
-      <Box sx={{ width: '20%' }}>
-        <Typography sx={{ textAlign: 'end', color: 'white', marginRight: '18px' }}></Typography>
+      <Box onClick={Logout} sx={{ width: '20%'}}>
+        <NavLink to='/login' style={{textDecoration:'none',display:'flex',justifyContent:'end'}}>
+        <LogoutIcon sx={{color:'white'}}/>
+        <Typography sx={{ fontSize:'18px',textAlign: 'end',cursor:'pointer', color: 'white', marginRight: '25px',fontWeight:'bold' }}>{token?"Logout":"Login"}</Typography>
+        </NavLink>
       </Box>
     </Box>
   );

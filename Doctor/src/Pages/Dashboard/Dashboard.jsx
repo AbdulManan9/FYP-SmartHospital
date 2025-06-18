@@ -10,11 +10,11 @@ const Dashboard = () => {
       <Navbar />
       <hr />
       <Box sx={{ display: 'flex' }}>
-        <Box sx={{ width: '18%', display: 'flex', justifyContent: 'center' }}>
+        <Box sx={{ width: '18%', display: {xs:'none',md:'flex'}, justifyContent: 'center' }}>
           <Sidebar />
         </Box>
         <Box sx={{
-          width: '82%', display: 'flex', justifyContent: 'center', alignItems: 'center', "@media (min-height: 900px)": {
+          width:  {xs:'100%',md:'82%'}, display: 'flex', justifyContent: 'center', alignItems: 'center', "@media (min-height: 900px)": {
             alignItems:'start',marginTop:'100px'
           }
         }}>

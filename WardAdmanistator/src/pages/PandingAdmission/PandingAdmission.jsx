@@ -5,6 +5,8 @@ import { NavLink } from 'react-router-dom';
 // import RoomsList from '../../componend/RoomsList';
 import RoomsList from '../../componend/RoomsList';
 import BedList from '../../componend/BedList';
+import Navbar from '../../componend/Navbar';
+import Sidebar from '../../componend/Sidebar';
 const PandingAdmission = () => {
     const [patientList, setPatientList] = useState([]);
     const wardAdmin_id = localStorage.getItem("wardAdmin_id");
@@ -50,6 +52,7 @@ const PandingAdmission = () => {
             if (response.data.success === true) {
                 alert("Patient has been admitted");
             } else {
+                
                 alert(response.data.message);
             }
         } catch (error) {
@@ -79,13 +82,15 @@ const PandingAdmission = () => {
         <>
             <RoomsList status={wardStatus} onSelectRoom={onSelectRoom} oncloseroom={oncloseroom} />
             <BedList status={bedStatus} onSelectBed={onSelectBed} onclosebed={onclosebed} id={room_id} />
-            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: "20px" }}>
-                <Box sx={{ width: '84%', display: 'flex', justifyContent: 'end', mt: '10px',}}>
-                    <NavLink to='/'>
-                        <Button sx={{ backgroundColor: '#E5E5E5', color: 'black', border: "1px solid black", "&:hover": { color: 'white', backgroundColor: '#015170', border: '1px solid white' } }}>Back to Dashboard</Button>
-                    </NavLink>
-                </Box>
-                <Box sx={{ width: '80%', backgroundColor: 'white', padding: '20px',boxShadow:'0 8px 24px rgba(0, 128, 255, 0.3)',border: '1px solid rgba(0, 128, 255, 0.2)',borderRadius:"20px" }}>
+            <Navbar/>
+            <hr/>
+            <Box sx={{display:'flex'}}>
+            <Box sx={{width:'18%'}}>
+                <Sidebar/>
+            </Box>
+            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: "20px",width:'82%' }}>
+                
+                <Box sx={{ width: '90%', backgroundColor: 'white', padding: '20px',boxShadow:'0 8px 24px rgba(0, 128, 255, 0.3)',border: '1px solid rgba(0, 128, 255, 0.2)',borderRadius:"20px" }}>
                     <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr 1fr 0.5fr ', fontFamily: 'sans-serif' }}>
                         <b>PatientName</b>
                         <b>DoctorName</b>
@@ -119,6 +124,7 @@ const PandingAdmission = () => {
                         }
                     </Box>
                 </Box>
+            </Box>
             </Box>
         </>
     )

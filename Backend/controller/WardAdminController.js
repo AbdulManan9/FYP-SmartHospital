@@ -201,6 +201,8 @@ const admitPendingPatient=async(req,resp)=>{
     try{
         const {room_id,bed_id,patient_id}=req.body;
         const admitStatus=await AdmissionRecordModel.findOne({patient_id});
+        console.log("Admit status is ");
+        console.log(admitStatus);
         const Patient=await PatientModel.findById(patient_id);
         console.log(admitStatus);
         if (!bed_id || !mongoose.Types.ObjectId.isValid(bed_id)) {
@@ -222,13 +224,17 @@ const admitPendingPatient=async(req,resp)=>{
                 message:"There is no patient exist",
             })
         }
-        if(admitStatus.status!="Pending"){
+        if(admitStatus.status=="Admit"){
             return resp.json({
                 success:false,
                 message:"You are not able to admit the patient",
             })
         }
+        
         const bedStatus = await bedModel.findById(bed_id);
+        const room=await RoomModule.findById(room_id);
+        console.log("Room is");
+        console.log(room);
         console.log(bedStatus);
         if(bedStatus.bed_status!="available"){
             return resp.json({
@@ -236,15 +242,18 @@ const admitPendingPatient=async(req,resp)=>{
                 message:"Bed is already booked",
             })
         }
+
         admitStatus.room_id=room_id;
         admitStatus.bed_id=bed_id;
         admitStatus.admissionDate = new Date().toISOString().split('T')[0];
+        
         admitStatus.status="Admit";
+        room.totalBeds=room.totalBeds-1;
+        await room.save();
         await admitStatus.save();
         bedStatus.bed_status="Booked";
         await bedStatus.save();
-        Patient.status="Admit";
-        await Patient.save();
+        
         return resp.json({
             success:true,
             message:"Patient has been admit successfully"

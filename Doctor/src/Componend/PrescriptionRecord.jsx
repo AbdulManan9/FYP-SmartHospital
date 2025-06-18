@@ -64,13 +64,13 @@ const PrescriptionRecord = (props) => {
     return (
         <Box sx={{
             height: '90vh',
-            width: '100%',
+            width: {xs:'90%',sm:'100%'},
             position: 'fixed',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
             zIndex: '1000',
-            display: status ? "block" : "none"
+            display: status ? "flex" : "none"
 
         }}>
             <AddPrescription status={addPrescriptionStatus} onclose={handleonclose} medicalRecord_id={medicalRecord_id}/>
@@ -79,13 +79,13 @@ const PrescriptionRecord = (props) => {
                     <Typography onClick={props.onclose} sx={{ fontSize: '18px', fontWeight: '600', color: '#736d6d', cursor: 'pointer' }}>X</Typography>
                 </Box>
 
-                <Box sx={{ display: 'grid', gridTemplateColumns: '0.7fr 0.5fr 0.5fr 0.5fr 0.7fr 0.7fr 0.1fr', margin: '5px', padding: '5px', borderBottom: '1px solid gray' }}>
-                    <b style={{ fontFamily: 'sans-serif', fontSize: '17px' }}> MedicineName</b>
-                    <b style={{ fontFamily: 'sans-serif', fontSize: '17px' }}> Dosage</b>
-                    <b style={{ fontFamily: 'sans-serif', fontSize: '17px' }}> Frequency</b>
-                    <b style={{ fontFamily: 'sans-serif', fontSize: '17px' }}> Duration</b>
-                    <b style={{ fontFamily: 'sans-serif', fontSize: '17px' }}> PrescribeBy</b>
-                    <b style={{ fontFamily: 'sans-serif', fontSize: '17px' }}> PrescribeDate</b>
+                <Box sx={{ display: 'grid', gridTemplateColumns:{xs:'0.7fr 0.5fr 0.5fr 0.1fr',sm:'0.7fr 0.5fr 0.5fr 0.5fr 0.7fr 0.7fr 0.1fr'}, margin:{xs:'0px',sm:'5px'}, padding: '5px', borderBottom: '1px solid gray' }}>
+                    <Typography sx={{fontWeight:'bold', fontFamily: 'sans-serif', fontSize: '17px' }}> MedicineName</Typography>
+                    <Typography sx={{fontWeight:'bold', fontFamily: 'sans-serif', fontSize: '17px' }}> Dosage</Typography>
+                    <Typography sx={{fontWeight:'bold', fontFamily: 'sans-serif', fontSize: '17px',display:{xs:'none',sm:'block'} }}> Frequency</Typography>
+                    <Typography sx={{fontWeight:'bold', fontFamily: 'sans-serif', fontSize: '17px'}} > Duration</Typography>
+                    <Typography sx={{fontWeight:'bold', fontFamily: 'sans-serif', fontSize: '17px',display:{xs:'none',sm:'block'} }}> PrescribeBy</Typography>
+                    <Typography sx={{fontWeight:'bold', fontFamily: 'sans-serif', fontSize: '17px',display:{xs:'none',sm:'block'} }}> PrescribeDate</Typography>
 
                 </Box>
                 <Box sx={{ height: '50vh', overflow: 'scroll', scrollbarWidth: 'none' }}>
@@ -93,13 +93,13 @@ const PrescriptionRecord = (props) => {
                         Array.isArray(prescriptionList) && prescriptionList.length > 0 ? (
                             prescriptionList.map((item, index) => {
                                 return (
-                                    <Box key={index} sx={{ display: 'grid', gridTemplateColumns: '0.7fr 0.5fr 0.5fr 0.5fr 0.7fr 1fr 0.1fr', margin: '5px', padding: '5px' }}>
+                                    <Box key={index} sx={{ display: 'grid', gridTemplateColumns:{xs:'0.7fr 0.5fr 0.5fr 0.1fr',sm:'0.7fr 0.5fr 0.5fr 0.5fr 0.7fr 0.7fr 0.1fr'}, margin: '5px', padding: '5px' }}>
                                         <Typography>{item.medicineName}</Typography>
                                         <Typography>{item.dosage}</Typography>
-                                        <Typography>{item.frequency}</Typography>
-                                        <Typography>{item.duration}</Typography>
-                                        <Typography>{item.doctor_id?.doctorName}</Typography>
-                                        <Typography>{item.prescriptionDate}</Typography>
+                                        <Typography sx={{display:{xs:'none',sm:'block'}}}>{item.frequency}</Typography>
+                                        <Typography >{item.duration}</Typography>
+                                        <Typography sx={{display:{xs:'none',sm:'block'}}}>{item.doctor_id?.doctorName}</Typography>
+                                        <Typography sx={{display:{xs:'none',sm:'block'}}}>{item.prescriptionDate}</Typography>
                                         <DeleteIcon onClick={() => deletePres(item._id)}/>
                                     </Box>
                                 )

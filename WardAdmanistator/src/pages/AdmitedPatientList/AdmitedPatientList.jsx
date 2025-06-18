@@ -1,8 +1,10 @@
-import { Box,Button } from '@mui/material'
+import { Box,Button, Typography } from '@mui/material'
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom';
 import DischargePatient from '../../componend/DischargePatient';
+import Navbar from '../../componend/Navbar';
+import Sidebar from '../../componend/Sidebar';
 const AdmitedPatientList = () => {
     const [dischargeStatus,setDischargeStatus]=useState(false);
     const [admitList, setAdmitList] = useState([]);
@@ -48,21 +50,25 @@ const AdmitedPatientList = () => {
     return (
         <>
         <DischargePatient status={dischargeStatus} onclose={onclose} onSubmit={onSubmit}/>
-        <Box sx={{display:'flex',flexDirection:'column',alignItems:'center',gap:'20px'}}>
-            <Box sx={{ width: '84%', display: 'flex', justifyContent: 'end', mt: '10px', }}>
-                <NavLink to='/'>
-                    <Button sx={{ backgroundColor: '#E5E5E5', color: 'black', border: "1px solid black", "&:hover": { color: 'white', backgroundColor: '#015170', border: '1px solid white' } }}>Back to Dashboard</Button>
-                </NavLink>
-            </Box>
-            <Box  sx={{ width: '80%', backgroundColor: 'white', padding: '20px',boxShadow:'0 8px 24px rgba(0, 128, 255, 0.3)',border: '1px solid rgba(0, 128, 255, 0.2)',borderRadius:"20px" }}>
-                <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.7fr 0.5fr 1fr 0.7fr' }}>
-                    <b>PatientName</b>
-                    <b>DoctorName</b>
-                    <b>RoomNo</b>
-                    <b>BedNo</b>
-                    <b>AdmissionDate</b>
-                    <b>Discharge</b>
-                    <b>{id}</b>
+        <Box >
+            <Navbar/>
+            <hr/>
+        </Box>
+        <Box sx={{display:'flex'}}>
+        <Box sx={{width:'18%'}}>
+            <Sidebar/>
+        </Box>
+        <Box sx={{display:'flex',flexDirection:'column',alignItems:'center',gap:'20px',width:'82%'}}>
+
+            <Box  sx={{ width: '95%', backgroundColor: 'white', padding: '20px',boxShadow:'0 8px 24px rgba(0, 128, 255, 0.3)',border: '1px solid rgba(0, 128, 255, 0.2)',borderRadius:"20px" }}>
+                <Box sx={{ display: 'grid', gridTemplateColumns: {xs:'1fr 0.7fr 0.7fr',sm:'1fr 1fr 0.7fr 0.5fr 1fr 0.7fr'} }}>
+                    <Typography fontWeight='bold'>PatientName</Typography>
+                    <Typography fontWeight='bold' sx={{display:{xs:'none',sm:'block'}}}>DoctorName</Typography>
+                    <Typography fontWeight='bold'>RoomNo</Typography>
+                    <Typography fontWeight='bold' sx={{display:{xs:'none',sm:'block'}}}>BedNo</Typography>
+                    <Typography fontWeight='bold' sx={{display:{xs:'none',sm:'block'}}}>AdmissionDate</Typography>
+                    <Typography fontWeight='bold'>Discharge</Typography>
+                   
                     
                 </Box>
                 <Box sx={{ height: '70vh', overflow: 'scroll', scrollbarWidth: 'none'}}>
@@ -70,13 +76,13 @@ const AdmitedPatientList = () => {
                         Array.isArray(admitList) && admitList.length > 0 ? (
                             admitList.map((item, index) => {
                                 return (  // ✅ Now it correctly returns JSX
-                                    <Box key={index} sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr 0.7fr 0.5fr 1fr 0.7fr', height: '35px', alignItems: 'center' }}>
+                                    <Box key={index} sx={{ display: 'grid', gridTemplateColumns: {xs:'1fr 0.7fr 0.7fr',sm:'1fr 1fr 0.7fr 0.5fr 1fr 0.7fr'}, height: '35px', alignItems: 'center' }}>
 
-                                        <p>{item.patient_id?.name}</p>
-                                        <p>{item.doctor_id?.doctorName}</p>
-                                        <p>{item.room_id?.roomNumber}</p>
-                                        <p>{item.bed_id?.bed_no}</p>
-                                        <p>{item.admissionDate}</p>
+                                        <Typography>{item.patient_id?.name}</Typography>
+                                        <Typography sx={{display:{xs:'none',sm:'block'}}}>{item.doctor_id?.doctorName}</Typography>
+                                        <Typography>{item.room_id?.roomNumber}</Typography>
+                                        <Typography sx={{display:{xs:'none',sm:'block'}}}>{item.bed_id?.bed_no}</Typography>
+                                        <Typography sx={{display:{xs:'none',sm:'block'}}}>{item.admissionDate}</Typography>
                                         <button onClick={()=>{setDischargeStatus(true);setRecordId(item._id)}} style={{height:'30px'}}>Discharge</button>
                                     </Box>
                                 );
@@ -87,6 +93,7 @@ const AdmitedPatientList = () => {
                     }
                 </Box>
             </Box>
+        </Box>
         </Box>
         </>
     )

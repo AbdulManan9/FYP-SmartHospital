@@ -114,8 +114,8 @@ const ProgressMonitoring = (props) => {
 
     return (
         <Box sx={{ display: status === "Vital" ? "flex" : "none", justifyContent: 'center', alignItems: 'center',flexDirection:'column' }}>
-            <Box sx={{width:'95%',display:'flex',justifyContent:'space-between',padding:'10px 0px',backgroundColor:'white'}}>
-                    <Typography>
+            <Box sx={{width:'100%',display:'flex',justifyContent:'space-between',padding:'10px 0px',backgroundColor:'white'}}>
+                    <Typography sx={{display:{xs:'none',sm:'block'}}}>
                         Enter date in which you like to see Presscription
                     </Typography>
                     <Box sx={{display:'flex',gap:'10px'}}>
@@ -123,7 +123,7 @@ const ProgressMonitoring = (props) => {
                         <button onClick={fetchRecord} style={{padding:'4px 20px'}}>Serch</button>
                     </Box>
                 </Box>
-            <Box sx={{ width: '95%', backgroundColor: 'white', height: '70vh' }}>
+            <Box sx={{ width: '100%', backgroundColor: 'white', height: '70vh' }}>
                 
                 {/* ✅ Fix canvas reuse issue with unique key */}
                 <Line data={graphData} key={record.length} />

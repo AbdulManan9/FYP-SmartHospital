@@ -6,7 +6,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 const DashboardData = (props) => {
     const wardAdmin_id = localStorage.getItem("wardAdmin_id");
-    const ward_id = "67b3e654cb6d069230abda45";
+    const ward_id = localStorage.getItem('dutyWard');
     const [totaladmit, setTotalAdmit] = useState("");
     const [pendingadmit, setPending] = useState("");
     const [totalbedsAvailable, settotalavailableBeds] = useState("");
@@ -44,32 +44,36 @@ const DashboardData = (props) => {
     }, [])
     return (
         <Box>
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', pt: "20px" }}>
-                <NavLink to='/totalAdmitedPatient' style={{ textDecoration: 'none' }}>
-                    <Box sx={{ border: "1px solid gray", padding: '10px', cursor: 'pointer', borderRadius: '10px', boxShadow: ' 0px 4px 8px rgba(128, 128, 128, 0.5)' }}>
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around', pt: "20px",gap:{xs:'30px',sm:'normal'},my:{xs:"20px",sm:'0px'} }}>
+                
+                    <Box sx={{ border: "1px solid gray" ,padding: '10px', cursor: 'pointer', borderRadius: '10px', boxShadow: ' 0px 4px 8px rgba(128, 128, 128, 0.5)',width:{xs:"80%",sm:'23%'} }}>
+                        <NavLink to='/totalAdmitedPatient' style={{ textDecoration: 'none' }}>
                         <Typography sx={{ fontWeight: '600', fontSize: "18px", color: 'black' }}>Total Patient Admit</Typography>
                         <Typography sx={{ color: '#016281', fontWeight: "600", fontSize: '18px' }}>{totaladmit}</Typography>
+                        </NavLink>  
                     </Box>
-                </NavLink>
-                <NavLink to='/pandingAdmission' style={{ textDecoration: 'none' }}>
-                    <Box sx={{ border: "1px solid gray", padding: '10px', cursor: 'pointer', borderRadius: '10px', boxShadow: ' 0px 4px 8px rgba(128, 128, 128, 0.5)' }}>
+                
+                
+                    <Box sx={{ border: "1px solid gray", padding: '10px', cursor: 'pointer', borderRadius: '10px', boxShadow: ' 0px 4px 8px rgba(128, 128, 128, 0.5)',width:{xs:"80%",sm:'23%'} }}>
+                        <NavLink to='/pandingAdmission' style={{ textDecoration: 'none' }}>
                         <Typography sx={{ fontWeight: '600', fontSize: "18px", color: 'black' }}>Pending Admission</Typography>
                         <Typography sx={{ color: '#016281', fontWeight: "600", fontSize: '18px' }}>{pendingadmit}</Typography>
+                        </NavLink>
 
                     </Box>
-                </NavLink>
+                
 
-                <Box sx={{ border: "1px solid gray", padding: '10px', cursor: 'pointer', borderRadius: '10px', boxShadow: ' 0px 4px 8px rgba(128, 128, 128, 0.5)' }}>
+                <Box sx={{ border: "1px solid gray", padding: '10px', cursor: 'pointer', borderRadius: '10px', boxShadow: ' 0px 4px 8px rgba(128, 128, 128, 0.5)',width:{xs:"80%",sm:'20%'} }}>
                     <Typography sx={{ fontWeight: '600', fontSize: "18px" }}>Total Available Beds</Typography>
                     <Typography sx={{ color: '#016281', fontWeight: "600", fontSize: '18px' }}>{totalbedsAvailable}</Typography>
 
                 </Box>
-                <Box sx={{ border: "1px solid gray", padding: '10px', cursor: 'pointer', borderRadius: '10px', boxShadow: ' 0px 4px 8px rgba(128, 128, 128, 0.5)' }}>
+                <Box sx={{ border: "1px solid gray", padding: '10px', cursor: 'pointer', borderRadius: '10px', boxShadow: ' 0px 4px 8px rgba(128, 128, 128, 0.5)',width:{xs:"80%",sm:'15%'} }}>
                     <Typography sx={{ fontWeight: '600', fontSize: "18px", color: 'black' }}>Assighn Ward</Typography>
                     <Typography sx={{ color: '#016281', fontWeight: "600", fontSize: '18px' }}>{assighnWard}</Typography>
                 </Box>
             </Box>
-            <Box sx={{ my: '20px', display: 'flex', justifyContent: 'space-around' }}>
+            <Box sx={{ my: '20px', display:{xs:'none',sm:'flex'}, justifyContent: 'space-around' }}>
                 <Box sx={{ textAlign: "center", width: '35%',boxShadow: ' 0px 4px 8px rgba(128, 128, 128, 0.5)'}}>
                     <Calendar style={{ width: '100%' }} />
                 </Box>

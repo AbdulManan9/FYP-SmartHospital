@@ -3,6 +3,7 @@ import WardModel from "../models/WardModels/WardModel.js";
 import PatientModel from "../models/PatientModel.js";
 import appointmentModel from "../models/AppointmentModel.js";
 import bedModel from "../models/WardModels/BedModel.js";
+import RoomModule from "../models/WardModels/RoomModel.js";
 const admitPatient = async (req, resp) => {
     try {
         const { patient_id, doctor_id, ward_id, appointment_id } = req.body;
@@ -24,13 +25,32 @@ const admitPatient = async (req, resp) => {
             });
         }
 
-        //Find Apointment
+        // ✅ Check room beds in the selected ward
+        const rooms = await RoomModule.find({ ward: ward_id });
+
+        if (!rooms.length) {
+            return resp.status(404).json({
+                success: false,
+                message: "No rooms found in this ward"
+            });
+        }
+
+        // ✅ Check if all rooms have totalBeds = 0
+        const allBedsZero = rooms.every(room => room.totalBeds === 0);
+        if (allBedsZero) {
+            return resp.status(400).json({
+                success: false,
+                message: "No beds available in this ward"
+            });
+        }
+
+        // Find appointment
         const appointment = await appointmentModel.findById(appointment_id);
-        if(appointment.status=="Complete"){
+        if (appointment?.status === "Complete") {
             return resp.json({
-                success:false,
-                message:"This appointment is already complete"
-            })
+                success: false,
+                message: "This appointment is already complete"
+            });
         }
 
         // Check if patient exists
@@ -43,41 +63,54 @@ const admitPatient = async (req, resp) => {
         }
 
         // Check if patient is already admitted
-    
-        const admit=await AdmissionRecordModel.findOne({patient_id:patient_id});
-        console.log("Admit is");
-        console.log(admit);
-        if(!admit){
+        const admit = await AdmissionRecordModel.findOne({ patient_id });
+
+        if (!admit) {
             const newAdmit = new AdmissionRecordModel({
                 patient_id,
                 doctor_id,
                 ward_id
             });
-    
+
             await newAdmit.save();
+
+            if (appointment) {
+                appointment.status = "Complete";
+                await appointment.save();
+            }
+
+            return resp.status(200).json({
+                success: true,
+                message: "Patient admitted successfully",
+                data: newAdmit
+            });
         }
-        else if(admit.status=="Admit" || admit.status=="Pending"){
-            appointment.status = "Complete";
-            await appointment.save();
+
+        if (admit.status === "Admit" || admit.status === "Pending") {
+            if (appointment) {
+                appointment.status = "Complete";
+                await appointment.save();
+            }
+
             return resp.json({
-                success:false,
-                message:"Patient is already admited in ward"
-            })
+                success: false,
+                message: "Patient is already admitted in ward"
+            });
         }
-        else{const newAdmit = new AdmissionRecordModel({
+
+        // If previous status is different, admit again
+        const newAdmit = new AdmissionRecordModel({
             patient_id,
             doctor_id,
             ward_id
         });
 
-        await newAdmit.save();}
-        // Create admission record
-        
+        await newAdmit.save();
 
-        // Update patient's status (optional but recommended)
-
-        appointment.status = "Complete";
-        await appointment.save();
+        if (appointment) {
+            appointment.status = "Complete";
+            await appointment.save();
+        }
 
         return resp.status(200).json({
             success: true,
@@ -93,6 +126,7 @@ const admitPatient = async (req, resp) => {
         });
     }
 };
+
 
 
 //total admited patient by one doctor
@@ -175,7 +209,10 @@ const dischargePatient=async(req,resp)=>{
         }
         AdmitRecord.status="Discharge";
         await AdmitRecord.save();
+        const room=await RoomModule.findById(AdmitRecord.room_id);
         const bed=await bedModel.findById(AdmitRecord.bed_id);
+        room.totalBeds=room.totalBeds+1;
+        await room.save();
         bed.bed_status="available";
         await bed.save();
         console.log("Bed is");
@@ -223,4 +260,34 @@ const PatientInRoom=async(req,resp)=>{
     }
 }
 
-export { admitPatient, totaladmitPatient, admitRecord,dischargePatient,PatientInRoom };
+
+// Discharge Patient List
+
+const dischargePatientList=async(req,resp)=>{
+    try{
+        const ward_id=req.params.ward_id;
+        const status="Discharge";
+        const PatientList=await AdmissionRecordModel.find({ward_id,status}).populate('patient_id').populate('doctor_id').populate('ward_id').populate('bed_id').populate('room_id');
+        if(PatientList.length==0){
+            return resp.json({
+                success:false,
+                message:"There is no discharge Patient exist"
+            })
+        }
+        return resp.json({
+            success:true,
+            messahe:"The List of Discharge Patient",
+            data:PatientList
+        })
+        
+    }
+    catch(error){
+        console.log(error);
+        return resp.json({
+            success:false,
+            message:"Error in api",
+            error:error
+        })
+    }
+}
+export { admitPatient, totaladmitPatient, admitRecord,dischargePatient,PatientInRoom,dischargePatientList };

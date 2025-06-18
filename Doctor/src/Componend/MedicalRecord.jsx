@@ -37,7 +37,7 @@ const MedicalRecord = (props) => {
     return (
         <Box sx={{ display: status === "Medical" ? "flex" : "none", flexDirection: 'column', alignItems: 'center' }}>
 
-            <Box sx={{ backgroundColor: 'white', width: '95%', py: '10px' }}>
+            <Box sx={{ backgroundColor: 'white', width: '100%', py: '10px' }}>
                 <Box sx={{ height: '60vh', display: 'flex', gap: '10px', overflow: 'scroll', scrollbarWidth: 'none', padding: '20px' }}>
                     {
                         Array.isArray(medicalRecordList) && medicalRecordList.length > 0 ? (
@@ -46,7 +46,7 @@ const MedicalRecord = (props) => {
                                 <Box key={index}
                                     
                                     sx={{
-                                        width: '330px',
+                                        width: {xs:'280px',sm:'330px'},
                                         padding: '10px',
                                         border: '1px solid #CECECE',
                                         borderRadius: '10px',

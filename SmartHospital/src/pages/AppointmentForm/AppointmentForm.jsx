@@ -103,7 +103,7 @@ const AppointmentForm = () => {
                 <input type="text" name="cnic" value={formData.cnic} onChange={handleChange} style={{ width: "100%", height: "25px" }} />
               </Box>
               <Box sx={{ width: { xs: "90%", md: "45%" } }}>
-                <label>Email (optional)</label><br />
+                <label>Email</label><br />
                 <input type="Email" name="Email" value={formData.Email} onChange={handleChange} style={{ width: "100%", height: "25px" }} />
               </Box>
             </Box>
